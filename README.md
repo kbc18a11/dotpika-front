@@ -1,7 +1,7 @@
 # dotpika-front
 ## Project setup
 ```
-npm ci
+npm install
 ```
 ## ディレクトリ構造
 ```
