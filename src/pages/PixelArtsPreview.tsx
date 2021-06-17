@@ -6,6 +6,9 @@ import { BrowserRouter as Route, Switch, Link } from 'react-router-dom';
 問題発生中!
 Buttonタグ中の文字列が縦になる
 BButtonGroupの下二つが影響を受ける
+
+・発生源
+PixelArtsEdit.cssが影響している
 */
 const PixelArtsPreview = () => {
   return (
