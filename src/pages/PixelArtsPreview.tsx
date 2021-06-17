@@ -2,6 +2,11 @@ import React from 'react';
 import { Button, ButtonGroup } from '@material-ui/core';
 import { BrowserRouter as Route, Switch, Link } from 'react-router-dom';
  
+/*
+問題発生中!
+Buttonタグ中の文字列が縦になる
+BButtonGroupの下二つが影響を受ける
+*/
 const PixelArtsPreview = () => {
   return (
     <React.Fragment>
@@ -17,16 +22,10 @@ const PixelArtsPreview = () => {
 
 export default PixelArtsPreview;
 
-//プレビュー表示領域、仮のcss
-const divStyle = {
-  backgroundColor: 'red',
-  width: 500,
-  height: 500
-};
 
 //プレビュー表示
 const PreviewPixels = () => {
-  return <div style={divStyle}>プレビュー</div>;
+  return <div>プレビュー</div>;
 }
 
 //削除
