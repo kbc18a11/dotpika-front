@@ -1,5 +1,5 @@
-.Preview {
+#preview div.pixelArea {
     background-color: red;
-    width: 500;
-    height: 500;
+    width: 576px;
+    height: 576px;
 }

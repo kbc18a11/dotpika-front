@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button, ButtonGroup } from '@material-ui/core';
 import { BrowserRouter as Route, Switch, Link } from 'react-router-dom';
+import '../css/PixelArtsPreview.css'
  
 /*
 問題発生中!
@@ -12,23 +13,28 @@ PixelArtsEdit.cssが影響している
 */
 const PixelArtsPreview = () => {
   return (
-    <React.Fragment>
+    <div id = "preview">
       <PreviewPixels/>
       <ButtonGroup orientation="vertical">
-      <Button component={Link} to='/pixel-arts-edit/:id'>編集</Button>
+        <Button component={Link} to="/pixel-arts-edit/:id">編集</Button>
         <Button onClick={DeletePixels}>削除</Button>
         <Button onClick={ReflectPixels}>実行</Button>
       </ButtonGroup>
-    </React.Fragment>
+    </div>
   );
 }
 
 export default PixelArtsPreview;
 
+let style = {
+  backgroundColor: "red",
+  width: 500,
+  height: 500
+}
 
 //プレビュー表示
 const PreviewPixels = () => {
-  return <div>プレビュー</div>;
+  return <div className = "pixelArea">プレビュー</div>;
 }
 
 //削除
