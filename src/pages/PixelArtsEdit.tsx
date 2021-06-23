@@ -158,7 +158,7 @@ const PixelArtsEdit = () => {
   }
   
   return (
-    <div id="main">
+    <div id="pixeelArtEdit">
       <div id="pixelArt">
         <table>
           <tbody>
@@ -210,7 +210,7 @@ const PixelArtsEdit = () => {
           <ColorButton key="white" value="white" index={7} onColorChange={(index) => handleColorChange(index)}/>
         </div>
         <SaveName name={save} onNameChange={(name) => handleNameChange(name)} onPixelArtSave={() => handlePixelArtSaveW()}
-         onMakeItShine={() => handleMakeItShine()} onDeleteColor={() => handleDeleteColor()}/>
+          onMakeItShine={() => handleMakeItShine()} onDeleteColor={() => handleDeleteColor()}/>
       </div>
     </div>
   );
