@@ -7,78 +7,78 @@
     width:642px;
 }
 
-table,td{
+#pixeelArtEdit table,td{
     border-collapse: collapse;
     border:1px solid darkgrey;
 }
 
-td{
+#pixeelArtEdit td{
     height:17px;
     width:17px;
 }
 
-#content{
+#pixeelArtEdit #content{
     width:600px;
     float:left;
 }
 
-#colorPalet{
+#pixeelArtEdit #colorPalet{
     width:300px;
     margin:auto;
     padding-top:50px;
 }
 
-#colorTitle{
+#pixeelArtEdit #colorTitle{
     border: medium solid black;
 }
 
-button{
+#pixeelArtEdit button{
     height:60px;
     width:60px;
     margin:10px;
 }
 
-#buttonRed{
+#pixeelArtEdit #buttonRed{
     background-color: red;
 }
-#buttonGreen{
+#pixeelArtEdit #buttonGreen{
     background-color: green;
 }
-#buttonBlue{
+#pixeelArtEdit #buttonBlue{
     background-color: blue;
 }
-#buttonYellow{
+#pixeelArtEdit #buttonYellow{
     background-color: yellow;
 }
-#buttonCyan{
+#pixeelArtEdit #buttonCyan{
     background-color: cyan;
 }
-#buttonPurple{
+#pixeelArtEdit #buttonPurple{
     background-color: purple;
 }
-#buttonBlack{
+#pixeelArtEdit #buttonBlack{
     background-color: black;
 }
-#buttonWhite{
+#pixeelArtEdit #buttonWhite{
     background-color: white;
 }
-#savePixelArt{
+#pixeelArtEdit #savePixelArt{
     margin-top:100px;
 }
-#saveName{
+#pixeelArtEdit #saveName{
     height:30px;
     width:200px;
 }
-#buttonSave{
+#pixeelArtEdit #buttonSave{
     height:35px;
     width:50px;
 }
-#buttonShine{
+#pixeelArtEdit #buttonShine{
     margin-right:100px;
     height:35px;
     width:100px;
 }
-#buttonDelete{
+#pixeelArtEdit #buttonDelete{
     height:50px;
     width:50px;
 }
