@@ -1,48 +1,76 @@
 import React from 'react';
-import { Button, ButtonGroup } from '@material-ui/core';
+import { Button, ButtonGroup, IconButton, Icon, makeStyles } from '@material-ui/core';
 import { BrowserRouter as Route, Switch, Link } from 'react-router-dom';
-import '../css/PixelArtsPreview.css'
- 
-/*
-問題発生中!
-Buttonタグ中の文字列が縦になる
-実行、削除のボタンが影響を受けている
+import { ArrowBack, ArrowForward } from '@material-ui/icons';
 
-・発生源
-PixelArtsEdit.cssが影響している
-*/
+const PreviewStyles = makeStyles({
+  content: {
+    margin: '20px 0px 20px 0px',
+    display: 'inline-block'
+  },
+  pixelArea: {
+    backgroundColor: 'red',
+    width: '576px',
+    height: '576px',
+    margin: '0px',
+    float: 'left'
+  },
+  btnSide: {
+    float: 'left'
+  },
+  margin: {
+    height: '450px'
+  },
+  btn: {
+    margin: '10px'
+  }
+});
+
 const PixelArtsPreview = () => {
+  const classes = PreviewStyles();
   return (
-    <div id = "preview">
-      <PreviewPixels/>
-      <ButtonGroup orientation="vertical">
-        <Button component={Link} to="/pixel-arts-edit/:id">編集</Button>
-        <Button onClick={DeletePixels}>削除</Button>
-        <Button onClick={ReflectPixels}>実行</Button>
-      </ButtonGroup>
-    </div>
+    <React.Fragment>
+      <div className={classes.content}>
+        <PreviewPixels className={classes.pixelArea} />
+        <div className={classes.btnSide}>
+          <div className={classes.margin}></div>
+          <div className={classes.btn}>
+            <ButtonGroup orientation="vertical">
+              <Button component={Link} to="/pixel-arts-edit/:id">編集</Button>
+              <Button onClick={deletePixels}>削除</Button>
+              <Button onClick={reflectPixels}>実行</Button>
+            </ButtonGroup>
+          </div>
+        </div>
+        <IconButton onClick={slidePixels}>
+          <ArrowBack color="primary"/>
+        </IconButton>
+        <IconButton>
+          <ArrowForward color="primary"/>
+        </IconButton>
+      </div>
+    </React.Fragment>
   );
 }
 
 export default PixelArtsPreview;
 
-let style = {
-  backgroundColor: "red",
-  width: 500,
-  height: 500
-}
-
 //プレビュー表示
-const PreviewPixels = () => {
-  return <div className = "pixelArea">プレビュー</div>;
+const PreviewPixels = (props: any) => {
+  return <div className={props.className}>プレビュー</div>;
 }
 
-//削除
-const DeletePixels = () => {
-  console.log("DeletePixels");
+//ドット絵を削除する
+const deletePixels = () => {
+  console.log("deletePixels");
 }
 
-//実行
-const ReflectPixels = () => {
-  console.log("ReflectPixels");
+//ドット絵を描画する
+const reflectPixels = () => {
+  console.log("reflectPixels");
+}
+
+//他のドット絵を表示する
+const slidePixels = () => {
+  console.log("slidePixels");
 }

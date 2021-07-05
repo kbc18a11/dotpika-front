@@ -1,5 +1,25 @@
-#preview div.pixelArea {
+#pixelArtsPreview {
+    margin:20px 0px 20px 0px;
+    display: inline-block;
+}
+
+#pixelArtsPreview div.pixelArea {
     background-color: red;
     width: 576px;
     height: 576px;
+    margin: 0px;
+    float: left;
+}
+
+#pixelArtsPreview div.btnSide {
+    float: left;
+}
+
+#pixelArtsPreview div.margin {
+    height: 450px;
+}
+
+#pixelArtsPreview div.btn {
+    margin: 10px;
+    
 }
