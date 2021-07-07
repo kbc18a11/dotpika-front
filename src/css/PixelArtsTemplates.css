@@ -1,0 +1,26 @@
+*{
+    padding: 0px;
+    margin: 0px;
+ }
+ h2{
+     text-align: left;
+     margin: 40px 2.5%;
+     font-size: 50px;
+ }
+ img{
+    width: 80%;
+	height: 20%;	
+ }
+ div.block-image{
+    display: inline-block;    
+    width: 25%;
+ }
+ div.name{
+     display: inline-block;    
+     width: 25%;
+ }
+
+ Button.playbutton{
+     height: 50px;
+     width: 50px;
+ }
