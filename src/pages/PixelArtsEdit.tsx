@@ -160,7 +160,7 @@ const PixelArtsEdit = () => {
   }
 
   return (
-    <div id="main">
+    <div id="pixeelArtEdit">
       <div id="pixelArt">
         <table>
           <tbody>
