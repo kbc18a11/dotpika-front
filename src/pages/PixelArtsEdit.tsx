@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react';
-import {Pixel} from '../components/Pixel';
+import { Pixel } from '../components/Pixel';
 import PixelRow from '../components/PixelRow';
 import ColorButton from '../components/ColorButton';
 import SaveName from '../components/SavePixelArt';
 import '../css/PixelArtsEdit.css';
 import { useLocation } from 'react-router';
+import outPutPixelArts from '../modules/requestApi/outPutPixelArts';
 
 type ColorObj = {
   red: number;
@@ -12,20 +13,20 @@ type ColorObj = {
   blue: number;
 }
 
-let PixelTable:Pixel[][] = [...Array(32)].map((_, i) => {
-  return [...Array(32)].map((_,j) => {
-      return {
-          x:i,
-          y:j,
-          red:0,
-          green:0,
-          blue:0
-      }
+let PixelTable: Pixel[][] = [...Array(32)].map((_, i) => {
+  return [...Array(32)].map((_, j) => {
+    return {
+      x: i,
+      y: j,
+      red: 0,
+      green: 0,
+      blue: 0
+    }
   })
 });
 
 
-const Color:ColorObj[] = [{red:1,green:0,blue:0},{red:0,green:1,blue:0},{red:0,green:0,blue:1},{red:1,green:1,blue:0},{red:0,green:1,blue:1},{red:1,green:0,blue:1},{red:0,green:0,blue:0},{red:1,green:1,blue:1}]
+const Color: ColorObj[] = [{ red: 1, green: 0, blue: 0 }, { red: 0, green: 1, blue: 0 }, { red: 0, green: 0, blue: 1 }, { red: 1, green: 1, blue: 0 }, { red: 0, green: 1, blue: 1 }, { red: 1, green: 0, blue: 1 }, { red: 0, green: 0, blue: 0 }, { red: 1, green: 1, blue: 1 }]
 
 let Clicked: boolean = false;
 
@@ -35,12 +36,12 @@ let isNewPixelArt: boolean = true;
 
 const PixelArtsEdit = () => {
   const [pixels, setPixel] = useState(PixelTable);
-  const [isClicked ,setClicked] = useState(Clicked);
+  const [isClicked, setClicked] = useState(Clicked);
   const [color, setColor] = useState(Color[0]);
   const [save, setSaveName] = useState(saveName);
   const [isNew, setIsNewPixelArt] = useState(isNewPixelArt);
   const location = useLocation().pathname.slice(-1);
-  
+
   useEffect(() => {
     const loadPixelArt = localStorage.getItem(location);
     if (loadPixelArt) {
@@ -49,19 +50,19 @@ const PixelArtsEdit = () => {
       setIsNewPixelArt(false);
       setSaveName(JSON.parse(loadPixelArt).name);
     }
-  },[]);
-  
+  }, []);
+
   useEffect(() => {
     pixels.map((row) => {
       row.map((p) => {
         let id = (p.x < 10 ? "0" + p.x : p.x) + "" + (p.y < 10 ? "0" + p.y : p.y)
-        let element:any = document.getElementById(id);
+        let element: any = document.getElementById(id);
         element.style.backgroundColor = `rgb(${p.red === 0 ? 0 : 255},${p.green === 0 ? 0 : 255},${p.blue === 0 ? 0 : 255})`;
       })
     })
-  },[pixels]);  
+  }, [pixels]);
 
-  const pixelrows = pixels.map((row)=>{
+  const pixelrows = pixels.map((row) => {
     return row.map((p) => {
       let id = (p.x < 10 ? "0" + p.x : p.x) + "" + (p.y < 10 ? "0" + p.y : p.y)
       return (
@@ -70,8 +71,8 @@ const PixelArtsEdit = () => {
           key={id}
           onMouseDown={() => handleMouseDown()}
           onMouseUp={() => handleMouseUp()}
-          onPixelOver={(x,y,red,green,blue) => handlePixelOver(x,y,red,green,blue)}
-          onPixelClick={(x,y,red,green,blue) => handlePixelClick(x,y,red,green,blue)}
+          onPixelOver={(x, y, red, green, blue) => handlePixelOver(x, y, red, green, blue)}
+          onPixelClick={(x, y, red, green, blue) => handlePixelClick(x, y, red, green, blue)}
         />
       );
     })
@@ -85,13 +86,13 @@ const PixelArtsEdit = () => {
     setClicked(false);
   }
 
-  
-  const handlePixelOver = (x:number,y:number,red:number,green:number,blue:number) => {
-    if(isClicked){
+
+  const handlePixelOver = (x: number, y: number, red: number, green: number, blue: number) => {
+    if (isClicked) {
       const newPixels = pixels.map((row) => {
         return row.map((p) => {
-          if(x === p.x && y === p.y){
-            return {...p,red:color.red,green:color.green,blue:color.blue}
+          if (x === p.x && y === p.y) {
+            return { ...p, red: color.red, green: color.green, blue: color.blue }
           }
           return p;
         })
@@ -100,26 +101,26 @@ const PixelArtsEdit = () => {
     }
   }
 
-  const handlePixelClick = (x:number,y:number,red:number,green:number,blue:number) => {
+  const handlePixelClick = (x: number, y: number, red: number, green: number, blue: number) => {
     const newPixels = pixels.map((row) => {
       return row.map((p) => {
-        if(x === p.x && y === p.y){
-          return {...p,red:color.red,green:color.green,blue:color.blue}
+        if (x === p.x && y === p.y) {
+          return { ...p, red: color.red, green: color.green, blue: color.blue }
         }
         return p;
       })
     })
     setPixel(newPixels);
   }
-  
 
-  const handleColorChange = (index:number) => {
+
+  const handleColorChange = (index: number) => {
     setColor(Color[index]);
   }
 
-  const handleNameChange = (name:string) => {
+  const handleNameChange = (name: string) => {
     setSaveName(name);
-    
+
   }
 
   const handlePixelArtSaveW = () => {
@@ -128,35 +129,36 @@ const PixelArtsEdit = () => {
 
   const handlePixelArtSave = () => {
     let id = 0;
-    if(localStorage.length !== 0){
+    if (localStorage.length !== 0) {
       for (let i = 0, length = localStorage.length; i < length; ++i) {
         let w = localStorage.key(i);
-        if(id < Number(w)){
+        if (id < Number(w)) {
           id = Number(w);
         }
       }
       id = id + 1;
     }
-    if(!isNew){
+    if (!isNew) {
       const loadPixelArt = localStorage.getItem(location);
       id = (JSON.parse(loadPixelArt!).id);
     }
     const PA = {
-      "id":id,
-      "name":save,
-      "dots":pixels
+      "id": id,
+      "name": save,
+      "dots": pixels
     }
     localStorage.setItem(String(id), JSON.stringify(PA));
   }
 
-  const handleMakeItShine = () => {
-
+  const handleMakeItShine = async () => {
+    // LEDにデータを送信
+    outPutPixelArts(pixels);
   }
 
   const handleDeleteColor = () => {
     setPixel(PixelTable);
   }
-  
+
   return (
     <div id="main">
       <div id="pixelArt">
@@ -200,17 +202,17 @@ const PixelArtsEdit = () => {
       <div id="content">
         <div id="colorPalet">
           <h1 id="colorTitle">Color</h1>
-          <ColorButton key="red" value="red" index={0} onColorChange={(index) => handleColorChange(index)}/>
-          <ColorButton key="green" value="green" index={1} onColorChange={(index) => handleColorChange(index)}/>
-          <ColorButton key="blue" value="blue" index={2} onColorChange={(index) => handleColorChange(index)}/>
-          <ColorButton key="yellow" value="yellow" index={3} onColorChange={(index) => handleColorChange(index)}/>
-          <ColorButton key="cyan" value="cyan" index={4} onColorChange={(index) => handleColorChange(index)}/>
-          <ColorButton key="purple" value="purple" index={5} onColorChange={(index) => handleColorChange(index)}/>
-          <ColorButton key="black" value="black" index={6} onColorChange={(index) => handleColorChange(index)}/>
-          <ColorButton key="white" value="white" index={7} onColorChange={(index) => handleColorChange(index)}/>
+          <ColorButton key="red" value="red" index={0} onColorChange={(index) => handleColorChange(index)} />
+          <ColorButton key="green" value="green" index={1} onColorChange={(index) => handleColorChange(index)} />
+          <ColorButton key="blue" value="blue" index={2} onColorChange={(index) => handleColorChange(index)} />
+          <ColorButton key="yellow" value="yellow" index={3} onColorChange={(index) => handleColorChange(index)} />
+          <ColorButton key="cyan" value="cyan" index={4} onColorChange={(index) => handleColorChange(index)} />
+          <ColorButton key="purple" value="purple" index={5} onColorChange={(index) => handleColorChange(index)} />
+          <ColorButton key="black" value="black" index={6} onColorChange={(index) => handleColorChange(index)} />
+          <ColorButton key="white" value="white" index={7} onColorChange={(index) => handleColorChange(index)} />
         </div>
         <SaveName name={save} onNameChange={(name) => handleNameChange(name)} onPixelArtSave={() => handlePixelArtSaveW()}
-         onMakeItShine={() => handleMakeItShine()} onDeleteColor={() => handleDeleteColor()}/>
+          onMakeItShine={() => handleMakeItShine()} onDeleteColor={() => handleDeleteColor()} />
       </div>
     </div>
   );
