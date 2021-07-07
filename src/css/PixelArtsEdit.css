@@ -1,0 +1,84 @@
+#pixelArt{
+    float:left;
+    margin-top:20px;
+    margin-left:100px;
+    margin-right:100px;
+    height:642px;
+    width:642px;
+}
+
+#pixeelArtEdit table,td{
+    border-collapse: collapse;
+    border:1px solid darkgrey;
+}
+
+#pixeelArtEdit td{
+    height:17px;
+    width:17px;
+}
+
+#pixeelArtEdit #content{
+    width:600px;
+    float:left;
+}
+
+#pixeelArtEdit #colorPalet{
+    width:300px;
+    margin:auto;
+    padding-top:50px;
+}
+
+#pixeelArtEdit #colorTitle{
+    border: medium solid black;
+}
+
+#pixeelArtEdit button{
+    height:60px;
+    width:60px;
+    margin:10px;
+}
+
+#pixeelArtEdit #buttonRed{
+    background-color: red;
+}
+#pixeelArtEdit #buttonGreen{
+    background-color: green;
+}
+#pixeelArtEdit #buttonBlue{
+    background-color: blue;
+}
+#pixeelArtEdit #buttonYellow{
+    background-color: yellow;
+}
+#pixeelArtEdit #buttonCyan{
+    background-color: cyan;
+}
+#pixeelArtEdit #buttonPurple{
+    background-color: purple;
+}
+#pixeelArtEdit #buttonBlack{
+    background-color: black;
+}
+#pixeelArtEdit #buttonWhite{
+    background-color: white;
+}
+#pixeelArtEdit #savePixelArt{
+    margin-top:100px;
+}
+#pixeelArtEdit #saveName{
+    height:30px;
+    width:200px;
+}
+#pixeelArtEdit #buttonSave{
+    height:35px;
+    width:50px;
+}
+#pixeelArtEdit #buttonShine{
+    margin-right:100px;
+    height:35px;
+    width:100px;
+}
+#pixeelArtEdit #buttonDelete{
+    height:50px;
+    width:50px;
+}
