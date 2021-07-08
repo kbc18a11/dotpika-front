@@ -3,12 +3,21 @@
     display: inline-block;
 }
 
-#pixelArtsPreview div.pixelArea {
-    background-color: red;
+#pixelArtsPreview table.pixelArea {
     width: 576px;
     height: 576px;
     margin: 0px;
     float: left;
+}
+
+#pixelArtsPreview table,td{
+    border-collapse: collapse;
+    border:1px solid darkgrey;
+}
+
+#pixelArtsPreview td{
+    height:17px;
+    width:17px;
 }
 
 #pixelArtsPreview div.btnSide {
