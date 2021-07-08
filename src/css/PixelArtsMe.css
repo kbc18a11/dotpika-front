@@ -1,0 +1,40 @@
+.items{
+	display: flex;
+	justify-content: space-between;
+	flex-wrap: wrap;
+    margin-left:30px;
+    margin-right:30px;
+}
+.items:after{
+	content:"";
+	display:block;
+	width: 33%;
+	height:0;
+}
+.item{
+	width: 33%;
+	height: 100px;
+	background:	rgb(70, 72, 228);
+}
+
+div.buttons{
+	height:100%;
+	text-align: right;
+
+}
+
+div.pixelArtName{
+	margin-top:34.5px;
+	margin-left:30px;
+	background-color: rgb(230, 230, 230);
+	width: 300px;
+	height: 35px;
+	color: rgb(0, 0, 0);
+	font-size:20px;
+	float:left;
+}
+
+h3.Name{
+	display: table-cell; /* IE8から使用可能 */
+ 	vertical-align: middle;
+}
