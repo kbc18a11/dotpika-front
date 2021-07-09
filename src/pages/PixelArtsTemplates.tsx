@@ -1,25 +1,32 @@
-import React from 'react';
 import '../css/PixelArtsTemplates.css';
 import Button from '@material-ui/core/Button';
+import { useEffect , useState} from 'react';
+
 
 
 const PixelArtsTemplates = () => {
-  var arg = "https://cdn.wikiwiki.jp/to/w/eft/img/::ref/Cash_register_img.jpg?rev=503e6188292c6295800f06357c0e6c9c&t=20191205231800";
-  var image;
-  //外部のAPIがないため、value関数が実行しない。
-  //代わりにargをimageに直接代入する。
-  image = arg;
-  function value(arg: any) {
-    image = arg;
-  }
+  //外部のAPIがないため、仮変数を利用
+  
+  const [image ,setImage] = useState("");
 
+  function value() {
+     setImage("https://cdn.wikiwiki.jp/to/w/eft/img/::ref/Cash_register_img.jpg?rev=503e6188292c6295800f06357c0e6c9c&t=20191205231800")
+    
+  }
+  
+  useEffect(() => {
+    value()
+  },[])
+
+  
 
   return (
 
 
+    
+
     <div className="body">
       <h2>テンプレート選択画面</h2>
-
       <div className="image">
         <div className="block-image">
           <img src={image} />
