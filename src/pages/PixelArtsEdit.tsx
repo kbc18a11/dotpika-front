@@ -50,6 +50,7 @@ const PixelArtsEdit = () => {
       setIsNewPixelArt(false);
       setSaveName(JSON.parse(loadPixelArt).name);
     }
+    document.getElementById('currentColor')!.style.backgroundColor = 'red';
   }, []);
 
   useEffect(() => {
@@ -61,6 +62,10 @@ const PixelArtsEdit = () => {
       })
     })
   }, [pixels]);
+
+  useEffect(() => {
+    document.getElementById('currentColor')!.style.backgroundColor = `rgb(${color.red === 0 ? 0 : 255},${color.green === 0 ? 0 : 255},${color.blue === 0 ? 0 : 255})`;
+  }, [color]);
 
   const pixelrows = pixels.map((row) => {
     return row.map((p) => {
@@ -120,8 +125,8 @@ const PixelArtsEdit = () => {
 
   const handleNameChange = (name: string) => {
     setSaveName(name);
-
   }
+  console.log(save) 
 
   const handlePixelArtSaveW = () => {
     handlePixelArtSave()
@@ -160,7 +165,7 @@ const PixelArtsEdit = () => {
   }
 
   return (
-    <div id="pixeelArtEdit">
+    <div id="pixelArtEdit">
       <div id="pixelArt">
         <table>
           <tbody>
@@ -201,7 +206,7 @@ const PixelArtsEdit = () => {
       </div>
       <div id="content">
         <div id="colorPalet">
-          <h1 id="colorTitle">Color</h1>
+          <div id="currentColor"></div>
           <ColorButton key="red" value="red" index={0} onColorChange={(index) => handleColorChange(index)} />
           <ColorButton key="green" value="green" index={1} onColorChange={(index) => handleColorChange(index)} />
           <ColorButton key="blue" value="blue" index={2} onColorChange={(index) => handleColorChange(index)} />

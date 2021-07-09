@@ -15,6 +15,7 @@ const useStyles = makeStyles({
         color: 'rgb(0, 0, 0)',
         fontSize:20,
         float:'left',
+        textTransform: 'none',
     },
     playButton: {
       borderRadius: 3,
