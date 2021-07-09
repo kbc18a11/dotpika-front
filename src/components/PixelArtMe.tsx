@@ -1,10 +1,21 @@
-import {ArtsMe} from "./ArtsMe";
+import { ArtsMe } from "./ArtsMe";
+import { Link } from 'react-router-dom'
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import playbutton from '../images/playbutton.png';
 import deletebutton from '../images/deletebutton.png';
 
 const useStyles = makeStyles({
+    pixelArtName:{
+        marginTop:34.5,
+        marginLeft:30,
+        backgroundColor: 'rgb(230, 230, 230)',
+        width: 300,
+        height: 35,
+        color: 'rgb(0, 0, 0)',
+        fontSize:20,
+        float:'left',
+    },
     playButton: {
       borderRadius: 3,
       boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
@@ -46,16 +57,18 @@ const PixelArtMe = (props: PixelArtMeProps) => {
         props.onClickDelete(id);
     }
     
+    const link:string = "/pixel-arts-preview/" + id;
+
     return(
         <div className="item">
-            <div className="pixelArtName">
-                <h3 className="name">{pixelArt.name}</h3>
-            </div>
+            <Link to={link}>
+                <Button className={classes.pixelArtName} id={id} variant="contained">{pixelArt.name}</Button> 
+            </Link>
             <div className='buttons'>
                 <Button className={classes.playButton} id={id} variant="contained" onClick={handlePlayPixelArt}><img src={playbutton}/></Button> 
                 <Button className={classes.deleteButton} id={id} variant="contained" onClick={handleDeletePixelArt}><img src={deletebutton}/></Button>    
             </div>
-        </div>    
+        </div>
     );
 }
 
