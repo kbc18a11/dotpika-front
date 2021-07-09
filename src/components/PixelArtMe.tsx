@@ -2,8 +2,8 @@ import { ArtsMe } from "./ArtsMe";
 import { Link } from 'react-router-dom'
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
-import playbutton from '../images/playbutton.png';
-import deletebutton from '../images/deletebutton.png';
+import playbutton from '../images/play.png';
+import deletebutton from '../images/delete.png';
 
 const useStyles = makeStyles({
     pixelArtName:{
