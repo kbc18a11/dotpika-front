@@ -22,19 +22,3 @@ div.buttons{
 	text-align: right;
 
 }
-
-div.pixelArtName{
-	margin-top:34.5px;
-	margin-left:30px;
-	background-color: rgb(230, 230, 230);
-	width: 300px;
-	height: 35px;
-	color: rgb(0, 0, 0);
-	font-size:20px;
-	float:left;
-}
-
-h3.Name{
-	display: table-cell; /* IE8から使用可能 */
- 	vertical-align: middle;
-}
