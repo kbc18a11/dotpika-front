@@ -23,24 +23,18 @@ const PixelArtsMe = () => {
 
   const handlePlayPixelArt = (id:string) => {
     const playData = pixelArts.filter(art => art.id == Number(id));
-    console.log(playData);
-    alert(JSON.stringify(playData));
+    alert("LEDを光らせるボタン"+JSON.stringify(playData));
   }
 
 
   const handleDeletePixelArt = (id:string) => {
     const newData = pixelArts.filter(art => art.id !== Number(id));
-    const deleteData = pixelArts.filter(art => art.id == Number(id));
     localStorage.removeItem(id);
     setPixelArts(newData);
-    alert("「" + deleteData[0].name + "」を削除しました。");
   }
 
-  console.log(pixelArts);
- 
   const getPixelArts = 
     pixelArts.map((pixelArt) => {
-    console.log(pixelArt);
     return (<PixelArtMe
       pixelArt={pixelArt}
       key={pixelArt.id}
