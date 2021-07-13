@@ -1,9 +1,15 @@
+import React, { useState } from "react";
 import { ArtsMe } from "./ArtsMe";
 import { Link } from 'react-router-dom'
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import playbutton from '../images/play.png';
 import deletebutton from '../images/delete.png';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
 
 const useStyles = makeStyles({
     pixelArtName:{
@@ -46,6 +52,7 @@ type PixelArtMeProps = {
 }
 
 const PixelArtMe = (props: PixelArtMeProps) => {
+    const [open, setOpen] = useState(false);
     const classes = useStyles();
     const pixelArt:ArtsMe = props.pixelArt;
     const id = String(pixelArt.id);
@@ -53,6 +60,19 @@ const PixelArtMe = (props: PixelArtMeProps) => {
     const handlePlayPixelArt = () => {
         props.onClickPlay(id);
     }
+
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+    
+    const handleCloseYes = () => {
+        setOpen(false);
+        handleDeletePixelArt();
+    };
+
+    const handleCloseNo = () => {
+        setOpen(false);
+    };
 
    const handleDeletePixelArt = () => {
         props.onClickDelete(id);
@@ -67,8 +87,27 @@ const PixelArtMe = (props: PixelArtMeProps) => {
             </Link>
             <div className='buttons'>
                 <Button className={classes.playButton} id={id} variant="contained" onClick={handlePlayPixelArt}><img src={playbutton}/></Button> 
-                <Button className={classes.deleteButton} id={id} variant="contained" onClick={handleDeletePixelArt}><img src={deletebutton}/></Button>    
+                <Button className={classes.deleteButton} id={id} variant="contained" onClick={handleClickOpen}><img src={deletebutton}/></Button>    
             </div>
+            <Dialog
+            open={open}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description">
+                <DialogTitle id="alert-dialog-title">{}</DialogTitle>
+                <DialogContent>
+                    <DialogContentText id="alert-dialog-description">
+                        「{pixelArt.name}」を削除しますか？  
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={handleCloseYes} color="primary">
+                        はい
+                    </Button>
+                    <Button onClick={handleCloseNo} color="primary" autoFocus>
+                        いいえ
+                    </Button>
+                </DialogActions>
+            </Dialog>
         </div>
     );
 }
