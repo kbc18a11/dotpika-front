@@ -83,3 +83,7 @@ div#errorMessage{
     margin-top:10px;
     font-size: 13px;
 }
+a#toLink{
+    text-decoration: none;
+    color:inherit;
+}
