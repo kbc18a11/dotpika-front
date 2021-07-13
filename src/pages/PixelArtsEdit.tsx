@@ -6,6 +6,7 @@ import SaveName from '../components/SavePixelArt';
 import '../css/PixelArtsEdit.css';
 import { useLocation } from 'react-router';
 import outPutPixelArts from '../modules/requestApi/outPutPixelArts';
+import UndoRedoButton from '../components/UndoRedoButton';
 
 type ColorObj = {
   red: number;
@@ -25,6 +26,13 @@ let PixelTable: Pixel[][] = [...Array(32)].map((_, i) => {
   })
 });
 
+const URLength = 20;
+
+let UndoRedoPixels:Pixel[][][]= [...Array(URLength)].map(() => {
+  return PixelTable;
+});
+
+
 
 const Color: ColorObj[] = [{ red: 1, green: 0, blue: 0 }, { red: 0, green: 1, blue: 0 }, { red: 0, green: 0, blue: 1 }, { red: 1, green: 1, blue: 0 }, { red: 0, green: 1, blue: 1 }, { red: 1, green: 0, blue: 1 }, { red: 0, green: 0, blue: 0 }, { red: 1, green: 1, blue: 1 }]
 
@@ -37,10 +45,16 @@ let isNewPixelArt: boolean = true;
 const PixelArtsEdit = () => {
   const [pixels, setPixel] = useState(PixelTable);
   const [isClicked, setClicked] = useState(Clicked);
+  const [isUpdated,setIsUpdated] = useState(false);
+  const [isUpdateUR,setIsUpdateUR] = useState(false);
   const [color, setColor] = useState(Color[0]);
   const [save, setSaveName] = useState(saveName);
   const [isNew, setIsNewPixelArt] = useState(isNewPixelArt);
+  const [startIndex, setStartIndex] = useState(0);
+  const [endIndex, setEndIndex] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState(0);
   const location = useLocation().pathname.slice(-1);
+  const [URPixels, setURPixels] = useState(UndoRedoPixels);
 
   useEffect(() => {
     const loadPixelArt = localStorage.getItem(location);
@@ -67,6 +81,37 @@ const PixelArtsEdit = () => {
     document.getElementById('currentColor')!.style.backgroundColor = `rgb(${color.red === 0 ? 0 : 255},${color.green === 0 ? 0 : 255},${color.blue === 0 ? 0 : 255})`;
   }, [color]);
 
+  useEffect(()=>{
+    if(isUpdateUR){
+      setUR();
+      setIsUpdateUR(false);
+      setIsUpdated(false);
+    }
+  },[isUpdateUR])
+
+  const setUR = () => {
+    const current = (URLength-1)<(currentIndex+1)?0:(currentIndex+1);
+    const newUR = URPixels.map((urPixel,i) => {
+      if(current != i){
+        return urPixel;
+      }
+      return urPixel.map((urRow,j)=>{
+        return urRow.map((urP,k) => {
+          return { ...urP, red: pixels[j][k].red, green: pixels[j][k].green, blue: pixels[j][k].blue }
+        })
+      })
+    })
+    setURPixels(newUR);      
+    if(startIndex < 0){
+      setStartIndex(startIndex+1);
+    }else if(startIndex == current){
+      let start = (URLength-1)<(startIndex + 1)?0:(startIndex + 1);
+      setStartIndex(start);
+    }
+    setEndIndex(current);
+    setCurrentIndex(current);
+  }
+
   const pixelrows = pixels.map((row) => {
     return row.map((p) => {
       let id = (p.x < 10 ? "0" + p.x : p.x) + "" + (p.y < 10 ? "0" + p.y : p.y)
@@ -91,7 +136,6 @@ const PixelArtsEdit = () => {
     setClicked(false);
   }
 
-
   const handlePixelOver = (x: number, y: number, red: number, green: number, blue: number) => {
     if (isClicked) {
       const newPixels = pixels.map((row) => {
@@ -103,6 +147,11 @@ const PixelArtsEdit = () => {
         })
       })
       setPixel(newPixels);
+      setIsUpdated(true);
+    }else{
+      if(isUpdated){
+        setIsUpdateUR(true);
+      }
     }
   }
 
@@ -116,6 +165,7 @@ const PixelArtsEdit = () => {
       })
     })
     setPixel(newPixels);
+    setIsUpdateUR(true);
   }
 
 
@@ -126,7 +176,6 @@ const PixelArtsEdit = () => {
   const handleNameChange = (name: string) => {
     setSaveName(name);
   }
-  console.log(save) 
 
   const handlePixelArtSaveW = () => {
     handlePixelArtSave()
@@ -162,9 +211,47 @@ const PixelArtsEdit = () => {
 
   const handleDeleteColor = () => {
     setPixel(PixelTable);
+    setIsUpdateUR(true);
   }
 
-  return (
+  const handleClickUndo = () => {
+    if(startIndex == -1){
+      return
+    }
+    let current = (currentIndex-1)<0?(URLength-1):(currentIndex-1);
+    if(startIndex < endIndex){
+      if(startIndex <= currentIndex-1){
+        setPixel(URPixels[current]);
+        setCurrentIndex(current); 
+      }
+    }else if(startIndex > endIndex){
+      if(endIndex != current){
+        setPixel(URPixels[current]);
+        setCurrentIndex(current); 
+      }
+    }
+  }
+
+
+  const handleClickRedo = () => {
+    if(startIndex == -1){
+      return
+    }
+    let current = (URLength-1)<(currentIndex+1)?0:(currentIndex+1);
+    if(startIndex < endIndex){
+      if(currentIndex+1 <= endIndex){
+        setPixel(URPixels[current]);
+        setCurrentIndex(current); 
+      }
+    }else if(startIndex > endIndex){
+      if(startIndex != current){
+        setPixel(URPixels[current]);
+        setCurrentIndex(current); 
+      }
+    }
+  }
+
+  return ( 
     <div id="pixelArtEdit">
       <div id="pixelArt">
         <table>
@@ -204,6 +291,7 @@ const PixelArtsEdit = () => {
           </tbody>
         </table>
       </div>
+      <UndoRedoButton onClickUndo={handleClickUndo} onClickRedo={handleClickRedo}/>
       <div id="content">
         <div id="colorPalet">
           <div id="currentColor"></div>
