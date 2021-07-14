@@ -47,25 +47,25 @@ const PixelArtsTemplates = () => {
 
 
     <div className="body">
-      <h2>テンプレート選択画面</h2>
+      <h2 id='templateh2'>テンプレート選択画面</h2>
       <div className="image">
        
        
 
         <div className="block-image">
-          <img src={""} />
+          <img id='templateimg' src={""} />
         </div>
 
         <div className="block-image">
-          <img src={""} />
+          <img id='templateimg' src={""} />
         </div>
 
         <div className="block-image">
-          <img src={""} />
+          <img id='templateimg' src={""} />
         </div>
 
         <div className="block-image">
-          <img src={""} />
+          <img id='templateimg' src={""} />
         </div>
 
 
@@ -73,7 +73,7 @@ const PixelArtsTemplates = () => {
           <div className="name">
             ＄＄＄
             <Button className="playbutton" color="inherit">
-              <img src="https://media.istockphoto.com/vectors/play-icon-design-vector-template-vector-id1251367325" />
+              <img id='templateimg' src="https://media.istockphoto.com/vectors/play-icon-design-vector-template-vector-id1251367325" />
             </Button>
           </div>
 
@@ -81,21 +81,21 @@ const PixelArtsTemplates = () => {
           <div className="name">
             ￥￥￥
             <Button className="playbutton" color="inherit">
-              <img src="https://media.istockphoto.com/vectors/play-icon-design-vector-template-vector-id1251367325" />
+              <img id='templateimg' src="https://media.istockphoto.com/vectors/play-icon-design-vector-template-vector-id1251367325" />
             </Button>
           </div>
 
           <div className="name">
             €　€　€
             <Button className="playbutton" color="inherit">
-              <img src="https://media.istockphoto.com/vectors/play-icon-design-vector-template-vector-id1251367325" />
+              <img id='templateimg' src="https://media.istockphoto.com/vectors/play-icon-design-vector-template-vector-id1251367325" />
             </Button>
           </div>
 
           <div className="name">
             ＊＊＊
             <Button className="playbutton" color="inherit">
-              <img src="https://media.istockphoto.com/vectors/play-icon-design-vector-template-vector-id1251367325" />
+              <img id='templateimg' src="https://media.istockphoto.com/vectors/play-icon-design-vector-template-vector-id1251367325" />
             </Button>
           </div>
         </div>
