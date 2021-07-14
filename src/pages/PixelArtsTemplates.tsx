@@ -15,7 +15,7 @@ const PixelArtsTemplates = () => {
   async function value() {
 
    
-    const [image[],setimage]=useState("");
+    //const [image[],setimage]=useState("");
     const url = 'http://localhost:5000/api/pixel-arts-templates';
 
     try {
@@ -24,7 +24,7 @@ const PixelArtsTemplates = () => {
 
       for (var imagedata in res.data.example_image) {
         var i = 0
-        image[i] = imagedata;
+        //image[i] = imagedata;
         i++;
         console.log(image[i]);
       }
@@ -49,30 +49,23 @@ const PixelArtsTemplates = () => {
     <div className="body">
       <h2>テンプレート選択画面</h2>
       <div className="image">
-        {(() => {
-          const items = [];
-          for (let i = 0; i < image.length; i++) {
-            <div className="block-image">
-              <img src={image[i]} />
-            </div>
-          }
-        })()}
-
+       
+       
 
         <div className="block-image">
-          <img src={image[0]} />
+          <img src={""} />
         </div>
 
         <div className="block-image">
-          <img src={image} />
+          <img src={""} />
         </div>
 
         <div className="block-image">
-          <img src={image} />
+          <img src={""} />
         </div>
 
         <div className="block-image">
-          <img src={image} />
+          <img src={""} />
         </div>
 
 
