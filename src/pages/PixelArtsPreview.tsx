@@ -1,13 +1,12 @@
 import React, {useState} from 'react';
 import { Button, ButtonGroup, IconButton, Icon, makeStyles } from '@material-ui/core';
-import { BrowserRouter as Route, Switch, Link } from 'react-router-dom';
+import { BrowserRouter as Route, Switch, Link, useParams, Redirect} from 'react-router-dom';
 import { ArrowBack, ArrowForward } from '@material-ui/icons';
 import '../css/PixelArtsPreview.css';
 
 const PixelArtsPreview = (props: any) => {
-  //localStorageのkeyの取得の仕方を模索中
-  //const _id: string = props._id;
-  const _id: string = "1"; 
+  const { id: _id } = useParams<{id: string}>();
+  const paeUrl = "/pixel-arts-edit/" + _id;
   return (
     <React.Fragment>
       <div id="pixelArtsPreview">
@@ -16,18 +15,18 @@ const PixelArtsPreview = (props: any) => {
           <div className="margin"></div>
           <div className="btn">
             <ButtonGroup orientation="vertical">
-              <Button component={Link} to="/pixel-arts-edit/:id">編集</Button>
-              <Button onClick={deletePixels}>削除</Button>
+              <Button component={Link} to={paeUrl}>編集</Button>
+              <Button onClick={() => deletePixels(_id)} component={Link} to="/pixel-arts-me">削除</Button>
               <Button onClick={reflectPixels}>実行</Button>
             </ButtonGroup>
           </div>
         </div>
-        <IconButton onClick={slidePixels}>
+        {/* <IconButton onClick={slidePixels}>
           <ArrowBack color="primary"/>
         </IconButton>
         <IconButton>
           <ArrowForward color="primary"/>
-        </IconButton>
+        </IconButton> */}
       </div>
     </React.Fragment>
   );
@@ -50,7 +49,6 @@ const PreviewPixels = (props: any) => {
       let styles = {
         backgroundColor: `rgb(${line[j].red === 0 ? 0 : 255},${line[j].green === 0 ? 0 : 255},${line[j].blue === 0 ? 0 : 255})`,
       }
-      console.log(styles.backgroundColor);
       td[j] = <td style={styles}></td>;
     }
     tr[i] = React.createElement("tr", {}, td);
@@ -66,8 +64,8 @@ const createTd = () => {
 }
 
 //ドット絵を削除する
-const deletePixels = () => {
-  console.log("deletePixels");
+const deletePixels = (_id: string) => {
+  localStorage.removeItem(_id);
 }
 
 //ドット絵を描画する
@@ -75,7 +73,7 @@ const reflectPixels = () => {
   console.log("reflectPixels");
 }
 
-//他のドット絵を表示する
-const slidePixels = () => {
-  console.log("slidePixels");
-}
+// 他のドット絵を表示する
+// const slidePixels = () => {
+//   console.log("slidePixels");
+// }

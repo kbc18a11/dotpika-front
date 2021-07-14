@@ -58,8 +58,7 @@ const PixelArtMe = (props: PixelArtMeProps) => {
         props.onClickDelete(id);
     }
     
-    const link:string = "/pixel-arts-preview/" + id;
-
+    const link:string = "/pixel-arts/" + id;
     return(
         <div className="item">
             <Link to={link}>
