@@ -1,84 +1,89 @@
 #pixelArt{
     float:left;
-    margin-top:20px;
-    margin-left:100px;
-    margin-right:100px;
-    height:642px;
-    width:642px;
+    margin:50px 20px 30px 100px;
+    height:576px;
+    width:576px;
 }
 
-#pixeelArtEdit table,td{
+#pixelArtEdit table,td{
     border-collapse: collapse;
     border:1px solid darkgrey;
 }
 
-#pixeelArtEdit td{
+#pixelArtEdit td{
     height:17px;
     width:17px;
 }
 
-#pixeelArtEdit #content{
-    width:600px;
+#pixelArtEdit #content{
+    margin-left:100px;
+    width:300px;
     float:left;
 }
 
-#pixeelArtEdit #colorPalet{
+#pixelArtEdit div#colorPalet{
     width:300px;
-    margin:auto;
     padding-top:50px;
 }
 
-#pixeelArtEdit #colorTitle{
+#pixelArtEdit div#currentColor{
     border: medium solid black;
+    margin-bottom:20px;
+    height:150px;
+    width:100%;
+    box-sizing: border-box;
 }
 
-#pixeelArtEdit button{
+
+#pixelArtEdit button.colorButton{
     height:60px;
     width:60px;
     margin:10px;
 }
 
-#pixeelArtEdit #buttonRed{
+#pixelArtEdit #buttonRed{
     background-color: red;
 }
-#pixeelArtEdit #buttonGreen{
-    background-color: green;
+#pixelArtEdit #buttonGreen{
+    background-color: rgb(0, 255, 0);
 }
-#pixeelArtEdit #buttonBlue{
+#pixelArtEdit #buttonBlue{
     background-color: blue;
 }
-#pixeelArtEdit #buttonYellow{
+#pixelArtEdit #buttonYellow{
     background-color: yellow;
 }
-#pixeelArtEdit #buttonCyan{
+#pixelArtEdit #buttonCyan{
     background-color: cyan;
 }
-#pixeelArtEdit #buttonPurple{
-    background-color: purple;
+#pixelArtEdit #buttonPurple{
+    background-color: rgb(255, 0, 255);
 }
-#pixeelArtEdit #buttonBlack{
+#pixelArtEdit #buttonBlack{
     background-color: black;
 }
-#pixeelArtEdit #buttonWhite{
+#pixelArtEdit #buttonWhite{
     background-color: white;
 }
-#pixeelArtEdit #savePixelArt{
-    margin-top:100px;
+#pixelArtEdit #savePixelArt{
+    display: flex;
+	justify-content: space-between;
 }
-#pixeelArtEdit #saveName{
-    height:30px;
-    width:200px;
+#pixelArtEdit #shineDeleteButtons{
+    margin-top:20px;
+    display: flex;
+	justify-content: space-between;
 }
-#pixeelArtEdit #buttonSave{
-    height:35px;
-    width:50px;
+div#undoNextButton{
+    width:40px;
+    margin-top:50px;
+    float:left;
 }
-#pixeelArtEdit #buttonShine{
-    margin-right:100px;
-    height:35px;
-    width:100px;
+div#errorMessage{
+    margin-top:10px;
+    font-size: 13px;
 }
-#pixeelArtEdit #buttonDelete{
-    height:50px;
-    width:50px;
+a#toLink{
+    text-decoration: none;
+    color:inherit;
 }
