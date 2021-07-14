@@ -50,9 +50,9 @@ const PixelArtsEdit = () => {
   const [color, setColor] = useState(Color[0]);
   const [save, setSaveName] = useState(saveName);
   const [isNew, setIsNewPixelArt] = useState(isNewPixelArt);
-  const [startIndex, setStartIndex] = useState(0);
-  const [endIndex, setEndIndex] = useState(0);
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [startIndex, setStartIndex] = useState(-1);
+  const [endIndex, setEndIndex] = useState(-1);
+  const [currentIndex, setCurrentIndex] = useState(-1);
   const location = useLocation().pathname.slice(-1);
   const [URPixels, setURPixels] = useState(UndoRedoPixels);
 
@@ -63,6 +63,11 @@ const PixelArtsEdit = () => {
       setPixel(JSON.parse(loadPixelArt).dots);
       setIsNewPixelArt(false);
       setSaveName(JSON.parse(loadPixelArt).name);
+      setUR(JSON.parse(loadPixelArt).dots);
+    }else{
+      setStartIndex(0);
+      setCurrentIndex(0);
+      setEndIndex(0);
     }
     document.getElementById('currentColor')!.style.backgroundColor = 'red';
   }, []);
@@ -83,27 +88,41 @@ const PixelArtsEdit = () => {
 
   useEffect(()=>{
     if(isUpdateUR){
-      setUR();
+      setUR(false);
       setIsUpdateUR(false);
       setIsUpdated(false);
     }
   },[isUpdateUR])
 
-  const setUR = () => {
+  const setUR = (data:any) => {
+    let newUR;
     const current = (URLength-1)<(currentIndex+1)?0:(currentIndex+1);
-    const newUR = URPixels.map((urPixel,i) => {
-      if(current != i){
-        return urPixel;
-      }
-      return urPixel.map((urRow,j)=>{
-        return urRow.map((urP,k) => {
-          return { ...urP, red: pixels[j][k].red, green: pixels[j][k].green, blue: pixels[j][k].blue }
+    if(data){
+      newUR = URPixels.map((urPixel,i) => {
+        if(0 != i){
+          return urPixel;
+        }
+        return urPixel.map((urRow,j)=>{
+          return urRow.map((urP,k) => {
+            return { ...urP, red: data[j][k].red, green: data[j][k].green, blue: data[j][k].blue }
+          })
         })
       })
-    })
+    }else{
+      newUR = URPixels.map((urPixel,i) => {
+        if(current != i){
+          return urPixel;
+        }
+        return urPixel.map((urRow,j)=>{
+          return urRow.map((urP,k) => {
+            return { ...urP, red: pixels[j][k].red, green: pixels[j][k].green, blue: pixels[j][k].blue }
+          })
+        })
+      })
+    }
     setURPixels(newUR);      
     if(startIndex < 0){
-      setStartIndex(startIndex+1);
+      setStartIndex(0);
     }else if(startIndex == current){
       let start = (URLength-1)<(startIndex + 1)?0:(startIndex + 1);
       setStartIndex(start);
@@ -250,6 +269,8 @@ const PixelArtsEdit = () => {
       }
     }
   }
+
+  console.log("s:"+startIndex+",c:"+currentIndex+",e:"+endIndex);
 
   return ( 
     <div id="pixelArtEdit">
