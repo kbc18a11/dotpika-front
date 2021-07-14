@@ -1,10 +1,8 @@
 #pixelArt{
     float:left;
-    margin-top:50px;
-    margin-left:50px;
-    margin-right:50px;
-    height:642px;
-    width:642px;
+    margin:50px 20px 30px 100px;
+    height:576px;
+    width:576px;
 }
 
 #pixelArtEdit table,td{
@@ -47,7 +45,7 @@
     background-color: red;
 }
 #pixelArtEdit #buttonGreen{
-    background-color: green;
+    background-color: rgb(0, 255, 0);
 }
 #pixelArtEdit #buttonBlue{
     background-color: blue;
@@ -59,7 +57,7 @@
     background-color: cyan;
 }
 #pixelArtEdit #buttonPurple{
-    background-color: purple;
+    background-color: rgb(255, 0, 255);
 }
 #pixelArtEdit #buttonBlack{
     background-color: black;
@@ -72,7 +70,20 @@
 	justify-content: space-between;
 }
 #pixelArtEdit #shineDeleteButtons{
-    margin-top:40px;
+    margin-top:20px;
     display: flex;
 	justify-content: space-between;
+}
+div#undoNextButton{
+    width:40px;
+    margin-top:50px;
+    float:left;
+}
+div#errorMessage{
+    margin-top:10px;
+    font-size: 13px;
+}
+a#toLink{
+    text-decoration: none;
+    color:inherit;
 }
