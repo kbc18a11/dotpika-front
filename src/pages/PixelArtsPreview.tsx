@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import { Pixel } from '../components/Pixel';
 import { Button, ButtonGroup, IconButton, Icon, makeStyles } from '@material-ui/core';
 import { BrowserRouter as Route, Switch, Link, useParams, Redirect} from 'react-router-dom';
 import { ArrowBack, ArrowForward } from '@material-ui/icons';
@@ -7,6 +8,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import outPutPixelArts from '../modules/requestApi/outPutPixelArts';
 import '../css/PixelArtsPreview.css';
 
 const PixelArtsPreview = (props: any) => {
@@ -17,6 +19,11 @@ const PixelArtsPreview = (props: any) => {
   const salvageLocal = localStorage.getItem(_id);
   const parseLocal = JSON.parse(salvageLocal!);
   const artName = parseLocal["name"];
+  const pixels:Pixel[][] = parseLocal["dots"];
+
+  const reflectPixels = () => {
+    outPutPixelArts(pixels);
+  }
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -31,6 +38,7 @@ const handleCloseNo = () => {
     setOpen(false);
   };
 
+  
   return (
     <React.Fragment>
       <div id="pixelArtsPreview">
@@ -113,9 +121,7 @@ const deletePixels = (_id: string) => {
 }
 
 //ドット絵を描画する
-const reflectPixels = () => {
-  console.log("reflectPixels");
-}
+
 
 // 他のドット絵を表示する
 // const slidePixels = () => {
