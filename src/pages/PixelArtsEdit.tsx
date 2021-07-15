@@ -27,7 +27,7 @@ let PixelTable: Pixel[][] = [...Array(32)].map((_, i) => {
   })
 });
 
-const URLength = 20;
+const URLength = 100;
 
 let UndoRedoPixels:Pixel[][][]= [...Array(URLength)].map(() => {
   return PixelTable;
