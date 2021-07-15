@@ -7,6 +7,7 @@ import '../css/PixelArtsEdit.css';
 import { useLocation } from 'react-router';
 import outPutPixelArts from '../modules/requestApi/outPutPixelArts';
 import UndoRedoButton from '../components/UndoRedoButton';
+import fillColor from '../images/fillColor.png'
 
 type ColorObj = {
   red: number;
@@ -40,12 +41,14 @@ const PixelArtsEdit = () => {
   const [isUpdated,setIsUpdated] = useState(false);
   const [isUpdateUR,setIsUpdateUR] = useState(false);
   const [color, setColor] = useState(Color[0]);
+  const [backgroundColor,setBackgroundColor] = useState(Color[6])
   const [save, setSaveName] = useState("");
   const [isNew, setIsNewPixelArt] = useState(true);
   const [startIndex, setStartIndex] = useState(-1);
   const [endIndex, setEndIndex] = useState(-1);
   const [currentIndex, setCurrentIndex] = useState(-1);
   const [isInit, setIsInit] = useState(false);
+  const [isInitBackgroundColor,setIsInitBackgroundColor] = useState(false)
   const [URPixels, setURPixels] = useState(UndoRedoPixels);
   const location = useLocation().pathname.slice(-1);
   useEffect(() => {
@@ -84,6 +87,24 @@ const PixelArtsEdit = () => {
   }, [color]);
 
   useEffect(()=>{
+    if(!isInitBackgroundColor){
+      setIsInitBackgroundColor(true);
+    }else{
+      const newPixels = pixels.map((row) => {
+        return row.map((p) => {
+          let id = (p.x < 10 ? "0" + p.x : p.x) + "" + (p.y < 10 ? "0" + p.y : p.y)
+          let element: any = document.getElementById(id);
+          element.style.backgroundColor = `rgb(${backgroundColor.red === 0 ? 0 : 255},${backgroundColor.green === 0 ? 0 : 255},${backgroundColor.blue === 0 ? 0 : 255})`
+          return {...p,red:backgroundColor.red,green:backgroundColor.green,blue:backgroundColor.blue};
+        })
+      })
+      setPixel(newPixels);
+      setIsUpdateUR(true);
+    }
+    
+  },[backgroundColor])
+
+  useEffect(()=>{
     if(isUpdateUR){
       const newPixels = pixels.map((row,i)=>{
         return row.map((p,j)=>{
@@ -97,16 +118,7 @@ const PixelArtsEdit = () => {
     }
   },[isUpdateUR])
 
-  const setAllBGC = () => {
-    pixels.map((row) => {
-      row.map((p) => {
-        let id = (p.x < 10 ? "0" + p.x : p.x) + "" + (p.y < 10 ? "0" + p.y : p.y)
-        let element: any = document.getElementById(id);
-        element.style.backgroundColor = `rgb(${p.red === 0 ? 0 : 255},${p.green === 0 ? 0 : 255},${p.blue === 0 ? 0 : 255})`;
-      })
-    })
-  }
-
+  
   const setUR = (data:any) => {
     let newUR;
     const current = (URLength-1)<(currentIndex+1)?0:(currentIndex+1);
@@ -180,6 +192,16 @@ const PixelArtsEdit = () => {
     }
   }
   
+  const setAllBGC = () => {
+    pixels.map((row) => {
+      row.map((p) => {
+        let id = (p.x < 10 ? "0" + p.x : p.x) + "" + (p.y < 10 ? "0" + p.y : p.y)
+        let element: any = document.getElementById(id);
+        element.style.backgroundColor = `rgb(${p.red === 0 ? 0 : 255},${p.green === 0 ? 0 : 255},${p.blue === 0 ? 0 : 255})`;
+      })
+    })
+  }
+
   const setBGC = (x:number,y:number) => {
     const id = (x < 10 ? "0" + x : x) + "" + (y < 10 ? "0" + y : y);
     const element: any = document.getElementById(id);
@@ -244,16 +266,37 @@ const PixelArtsEdit = () => {
   }
 
   const handleDeleteColor = () => {
-    pixels.map((row) => {
-      row.map((p) => {
+    const newPixels = pixels.map((row) => {
+      return row.map((p) => {
         let id = (p.x < 10 ? "0" + p.x : p.x) + "" + (p.y < 10 ? "0" + p.y : p.y)
         let element: any = document.getElementById(id);
-        element.style.backgroundColor = 'rgb(0,0,0)';
+        element.style.backgroundColor = `rgb(${backgroundColor.red === 0 ? 0 : 255},${backgroundColor.green === 0 ? 0 : 255},${backgroundColor.blue === 0 ? 0 : 255})`
+        return {...p,red:backgroundColor.red,green:backgroundColor.green,blue:backgroundColor.blue};
       })
     })
-    setPixel(PixelTable);
-    
+    setPixel(newPixels);
     setIsUpdateUR(true);
+  }
+
+  const backgroundColorButtons = () => {
+    return (
+      <div id="backgroundColorButtons">
+        <img src={fillColor}/>
+        <ColorButton key="red" value="red" index={0} onColorChange={(index) => handleBackgroundColor(index)} />
+        <ColorButton key="green" value="green" index={1} onColorChange={(index) => handleBackgroundColor(index)} />
+        <ColorButton key="blue" value="blue" index={2} onColorChange={(index) => handleBackgroundColor(index)} />
+        <ColorButton key="yellow" value="yellow" index={3} onColorChange={(index) => handleBackgroundColor(index)} />
+        <ColorButton key="cyan" value="cyan" index={4} onColorChange={(index) => handleBackgroundColor(index)} />
+        <ColorButton key="purple" value="purple" index={5} onColorChange={(index) => handleBackgroundColor(index)} />
+        <ColorButton key="black" value="black" index={6} onColorChange={(index) => handleBackgroundColor(index)} />
+        <ColorButton key="white" value="white" index={7} onColorChange={(index) => handleBackgroundColor(index)} />
+      </div>
+    )
+  }
+
+  const handleBackgroundColor = (index:number) => {
+    setBackgroundColor(Color[index]);
+    
   }
 
   const handleClickUndo = () => {
@@ -297,6 +340,7 @@ const PixelArtsEdit = () => {
 
   return ( 
     <div id="pixelArtEdit" onMouseDown={(e) => handleMouseWindowDown(e)} onMouseUp={(e) => handleMouseWindowUp(e)}>
+      {backgroundColorButtons()}
       <div id="pixelArt">
         <table>
           <tbody>
