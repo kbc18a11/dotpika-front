@@ -47,7 +47,7 @@ const PixelArtsMe = () => {
   
   return (
     <div className="ArtsMe">
-    <h1>ドット絵一覧画面</h1>
+    <h2 id="pixelArtsMeTitle">ドット絵一覧画面</h2>
       <div className="items">
       {getPixelArts}
       </div>
