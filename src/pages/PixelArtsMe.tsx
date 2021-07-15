@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import {ArtsMe} from '../components/ArtsMe';
 import '../css/PixelArtsMe.css';
 import PixelArtMe from '../components/PixelArtMe';
+import outPutPixelArts from '../modules/requestApi/outPutPixelArts';
 
 let ArtMe:ArtsMe[] = new Array();
 
@@ -23,7 +24,8 @@ const PixelArtsMe = () => {
 
   const handlePlayPixelArt = (id:string) => {
     const playData = pixelArts.filter(art => art.id == Number(id));
-    alert("LEDを光らせるボタン"+JSON.stringify(playData));
+    console.log(playData[0].dots);
+    outPutPixelArts(playData[0].dots);
   }
 
 
@@ -47,7 +49,7 @@ const PixelArtsMe = () => {
   
   return (
     <div className="ArtsMe">
-    <h1>ドット絵一覧画面</h1>
+    <h2 id="pixelArtsMeTitle">ドット絵一覧画面</h2>
       <div className="items">
       {getPixelArts}
       </div>

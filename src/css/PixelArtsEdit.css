@@ -1,8 +1,12 @@
 #pixelArt{
     float:left;
-    margin:50px 20px 30px 100px;
+    margin:50px 20px 30px 30px;
     height:576px;
     width:576px;
+}
+
+#pixelArtEdit{
+    height:656px;
 }
 
 #pixelArtEdit table,td{
@@ -86,4 +90,20 @@ div#errorMessage{
 a#toLink{
     text-decoration: none;
     color:inherit;
+}
+div#backgroundColorButtons {
+    margin-top:80px;
+    margin-left:80px;
+    width:50px;
+    float:left;
+}
+
+div#backgroundColorButtons img{
+    margin-left:10px;
+}
+
+
+div#backgroundColorButtons button.colorButton{
+    width:40px;
+    height:40px;
 }
