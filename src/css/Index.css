@@ -6,7 +6,7 @@
 	font-family: 'MyFont';
 	src: url(./myfont.ttf);
 }
-div.title,h1{
+div.title{
 	font-family: MyFont;
 }
 
