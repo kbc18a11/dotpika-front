@@ -48,7 +48,7 @@ type SavePixelArtProps = {
     onMakeItShine:() => void;
 }
 
-const SavePixelArt = (props: SavePixelArtProps) => {
+const SavePixelArt = React.memo((props: SavePixelArtProps) => {
     const eMsg:string = "12文字以内で名前を入力してください"
     const name = props.name;
     const [open, setOpen] = useState(false);
@@ -150,7 +150,7 @@ const SavePixelArt = (props: SavePixelArtProps) => {
             </Dialog>
         </div>
     );
-}
+})
 
 export default SavePixelArt;
 
