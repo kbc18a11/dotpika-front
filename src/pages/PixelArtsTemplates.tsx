@@ -18,7 +18,7 @@ const useStyles = makeStyles({
     width: 36,
     padding: 0,
     marginTop: 5,
-    marginLeft: 5,
+    marginLeft: 20,
     marginRight: 5,
     marginBottom: 15,
   },
@@ -73,13 +73,31 @@ const PixelArtsTemplates = () => {
       } catch (e) {
         console.error(e.response);
 
+        if (!e.response) {
+          alert(
+            'システムエラーが発生しました。お手数をおかけいたしますが、会場スタッフにご連絡ください。'
+            + 'APIが起動できていません。スタッフは、マニュアルファイルの手順に従って、APIを起動してください。'
+            + 'もし解決できない場合は、代表者にご連絡ください。'
+          );
+          return;
+        }
+
         if (e.response.status !== 404) {
+          if (e.response.data.sqlMessage === 'Too many connections') {
+            alert(
+              'システムエラーが発生しました。お手数をおかけいたしますが、会場スタッフにご連絡ください。'
+              + 'MySQLの接続数が最大に達しました。APIを再起動してください。'
+              + 'もし解決できない場合は、代表者にご連絡ください。'
+            );
+          }
+
           alert(
             'システムエラーが発生しました。お手数をおかけいたしますが、会場スタッフにご連絡ください。'
             + 'スタッフは、ブラウザのconsoleを確認して、マニュアルファイルの手順に従ってください。'
             + 'もし解決できない場合は、代表者にご連絡ください。'
           );
         }
+
       }
     };
     init();
@@ -98,14 +116,14 @@ const PixelArtsTemplates = () => {
                 </div>
                 <div className="name">
                   {pixelArt.name}
-                  <Button
-                    className={classes.playButton}
-                    onClick={() => outPutLed(index)}
-                    variant="contained"
-                  >
-                    <img src={playbutton} />
-                  </Button>
                 </div>
+                <Button
+                  className={classes.playButton}
+                  onClick={() => outPutLed(index)}
+                  variant="contained"
+                >
+                  <img src={playbutton} />
+                </Button>
               </Paper>
             );
           })
