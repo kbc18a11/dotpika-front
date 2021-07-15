@@ -2,11 +2,35 @@ import React, {useState} from 'react';
 import { Button, ButtonGroup, IconButton, Icon, makeStyles } from '@material-ui/core';
 import { BrowserRouter as Route, Switch, Link, useParams, Redirect} from 'react-router-dom';
 import { ArrowBack, ArrowForward } from '@material-ui/icons';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
 import '../css/PixelArtsPreview.css';
 
 const PixelArtsPreview = (props: any) => {
+  const [open, setOpen] = useState(false);
   const { id: _id } = useParams<{id: string}>();
   const paeUrl = "/pixel-arts-edit/" + _id;
+
+  const salvageLocal = localStorage.getItem(_id);
+  const parseLocal = JSON.parse(salvageLocal!);
+  const artName = parseLocal["name"];
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleCloseYes = () => {
+      setOpen(false);
+      deletePixels(_id)
+  };
+
+const handleCloseNo = () => {
+    setOpen(false);
+  };
+
   return (
     <React.Fragment>
       <div id="pixelArtsPreview">
@@ -16,7 +40,7 @@ const PixelArtsPreview = (props: any) => {
           <div className="btn">
             <ButtonGroup orientation="vertical">
               <Button component={Link} to={paeUrl}>編集</Button>
-              <Button onClick={() => deletePixels(_id)} component={Link} to="/pixel-arts-me">削除</Button>
+              <Button onClick={handleClickOpen}>削除</Button>
               <Button onClick={reflectPixels}>実行</Button>
             </ButtonGroup>
           </div>
@@ -28,6 +52,25 @@ const PixelArtsPreview = (props: any) => {
           <ArrowForward color="primary"/>
         </IconButton> */}
       </div>
+      <Dialog
+        open={open}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description">
+            <DialogTitle id="alert-dialog-title">{}</DialogTitle>
+            <DialogContent>
+                <DialogContentText id="alert-dialog-description">
+                    「{artName}」を削除しますか？  
+                </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+                <Button onClick={handleCloseYes} color="primary">
+                  <Link to="/pixel-arts-me" id="toLink">はい</Link>
+                </Button>
+                <Button onClick={handleCloseNo} color="primary" autoFocus>
+                    いいえ
+                </Button>
+            </DialogActions>
+        </Dialog>
     </React.Fragment>
   );
 }
@@ -40,6 +83,7 @@ const PreviewPixels = (props: any) => {
   const salvageLocal = localStorage.getItem(props._id);
   const parseLocal = JSON.parse(salvageLocal!);
   const dots = parseLocal["dots"];
+  const artName = parseLocal["name"];
   
   let tr = [];
   for(var i = 0; i < dots.length; i++) {
