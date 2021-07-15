@@ -1,44 +1,40 @@
-*{
-    padding: 0px;
-    margin: 0px;
- }
- @font-face {
-	font-family: 'MyFont';
-	src: url(./myfont.ttf);
+* {
+  padding: 0px;
+  margin: 0px;
 }
-div.title,h1{
-	font-family: MyFont;
+@font-face {
+  font-family: 'MyFont';
+  src: url(./myfont.ttf);
 }
-
-
- h1{
-    font-size: 100px;
-    text-align: center;
-    padding: 30px 0px;
- }
- div.link{
-    font-size: 50px;
-    text-align: center;
-   
- }
- div.button-top{
-    font-size: 25px;
-    text-align: auto;
-    padding: 0px 40px;
-    font-weight: bold;
-    -webkit-box-shadow: 0 3px 5px rgba(0, 0, 0, .3);
-    box-shadow: 0 3px 5px rgba(0, 0, 0, .3);
-    border: 4px solid whitesmoke;
- }
- div.button-top:hover{
-   margin-top: 3px;
-   color:darkblue;
-   background: hsla(180,50%,50%,0.7);
- }
-
-
- div.title{
-     font-size: 90px;
-     padding: 25px;
-     padding-top: 0px;
- }
+div.title,
+h1 {
+  font-family: MyFont;
+}
+h1 {
+  font-size: 100px;
+  text-align: center;
+  padding: 30px 0px;
+}
+div.link {
+  font-size: 50px;
+  text-align: center;
+}
+div.button-top {
+  font-size: 25px;
+  text-align: auto;
+  padding: 0px 40px;
+  font-weight: bold;
+  -webkit-box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
+  border: 4px solid whitesmoke;
+}
+div.button-top:hover {
+  margin-top: 3px;
+  color: darkblue;
+  background: hsla(180, 50%, 50%, 0.7);
+}
+div.title {
+  font-size: 90px;
+  padding: 25px;
+  padding-top: 0px;
+}

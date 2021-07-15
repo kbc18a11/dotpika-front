@@ -1,14 +1,6 @@
 import axios from 'axios';
 import { Pixel } from '../../components/Pixel';
 
-interface Dot {
-  x: number;
-  y: number;
-  red: number;
-  green: number;
-  bule: number;
-}
-
 export default async (pixelArt: Pixel[][]) => {
   try {
     const response = await axios
