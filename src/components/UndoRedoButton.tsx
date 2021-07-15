@@ -4,6 +4,7 @@ import {
 } from "@material-ui/core/";
 import undo from '../images/undo.png';
 import redo from '../images/redo.png';
+import React from "react";
 
 const useStyles = makeStyles({
     undonextButton: {
@@ -24,7 +25,7 @@ type UndoRedoButtonProps = {
     onClickRedo:() => void;
 }
 
-const UndoRedoButton = (props: UndoRedoButtonProps) => {
+const UndoRedoButton = React.memo((props: UndoRedoButtonProps) => {
     const classes = useStyles();
     
 
@@ -42,6 +43,6 @@ const UndoRedoButton = (props: UndoRedoButtonProps) => {
             <Button className={classes.undonextButton} variant="contained" onClick={handleNextPixels}><img src={redo}/></Button> 
         </div>
     );
-}
+})
 
 export default UndoRedoButton;

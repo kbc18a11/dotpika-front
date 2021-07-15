@@ -5,6 +5,10 @@
     width:576px;
 }
 
+#pixelArtEdit{
+    height:656px;
+}
+
 #pixelArtEdit table,td{
     border-collapse: collapse;
     border:1px solid darkgrey;

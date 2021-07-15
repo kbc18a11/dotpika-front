@@ -32,34 +32,26 @@ let UndoRedoPixels:Pixel[][][]= [...Array(URLength)].map(() => {
   return PixelTable;
 });
 
-
-
 const Color: ColorObj[] = [{ red: 1, green: 0, blue: 0 }, { red: 0, green: 1, blue: 0 }, { red: 0, green: 0, blue: 1 }, { red: 1, green: 1, blue: 0 }, { red: 0, green: 1, blue: 1 }, { red: 1, green: 0, blue: 1 }, { red: 0, green: 0, blue: 0 }, { red: 1, green: 1, blue: 1 }]
 
-let Clicked: boolean = false;
-
-let saveName: string = "";
-
-let isNewPixelArt: boolean = true;
-
 const PixelArtsEdit = () => {
-  const [pixels, setPixel] = useState(PixelTable);
-  const [isClicked, setClicked] = useState(Clicked);
+  let [pixels, setPixel] = useState(PixelTable);
+  const [isClicked, setClicked] = useState(false);
   const [isUpdated,setIsUpdated] = useState(false);
   const [isUpdateUR,setIsUpdateUR] = useState(false);
   const [color, setColor] = useState(Color[0]);
-  const [save, setSaveName] = useState(saveName);
-  const [isNew, setIsNewPixelArt] = useState(isNewPixelArt);
+  const [save, setSaveName] = useState("");
+  const [isNew, setIsNewPixelArt] = useState(true);
   const [startIndex, setStartIndex] = useState(-1);
   const [endIndex, setEndIndex] = useState(-1);
   const [currentIndex, setCurrentIndex] = useState(-1);
-  const location = useLocation().pathname.slice(-1);
+  const [isInit, setIsInit] = useState(false);
   const [URPixels, setURPixels] = useState(UndoRedoPixels);
-
+  const location = useLocation().pathname.slice(-1);
   useEffect(() => {
     const loadPixelArt = localStorage.getItem(location);
     if (loadPixelArt) {
-      console.log(JSON.parse(loadPixelArt));
+      //console.log(JSON.parse(loadPixelArt));
       setPixel(JSON.parse(loadPixelArt).dots);
       setIsNewPixelArt(false);
       setSaveName(JSON.parse(loadPixelArt).name);
@@ -73,13 +65,18 @@ const PixelArtsEdit = () => {
   }, []);
 
   useEffect(() => {
-    pixels.map((row) => {
-      row.map((p) => {
-        let id = (p.x < 10 ? "0" + p.x : p.x) + "" + (p.y < 10 ? "0" + p.y : p.y)
-        let element: any = document.getElementById(id);
-        element.style.backgroundColor = `rgb(${p.red === 0 ? 0 : 255},${p.green === 0 ? 0 : 255},${p.blue === 0 ? 0 : 255})`;
-      })
-    })
+    if(!isInit){
+      setAllBGC();
+      setIsInit(true)
+    }else{
+      if(isUpdateUR){
+        setUR(false);
+        setIsUpdateUR(false);
+        setIsUpdated(false);
+      }else{
+        setAllBGC();
+      }
+    }
   }, [pixels]);
 
   useEffect(() => {
@@ -88,11 +85,27 @@ const PixelArtsEdit = () => {
 
   useEffect(()=>{
     if(isUpdateUR){
-      setUR(false);
-      setIsUpdateUR(false);
-      setIsUpdated(false);
+      const newPixels = pixels.map((row,i)=>{
+        return row.map((p,j)=>{
+          let id = (p.x < 10 ? "0" + p.x : p.x) + "" + (p.y < 10 ? "0" + p.y : p.y)
+          let element = document.getElementById(id);
+          let [r,g,b] = element!.style.backgroundColor.substring(4).slice(0,-1).split(',').map((i:string) => Number(i) == 0?0:1)
+            return {...p,red:r,green:g,blue:b}
+        })
+      })
+      setPixel(newPixels);
     }
   },[isUpdateUR])
+
+  const setAllBGC = () => {
+    pixels.map((row) => {
+      row.map((p) => {
+        let id = (p.x < 10 ? "0" + p.x : p.x) + "" + (p.y < 10 ? "0" + p.y : p.y)
+        let element: any = document.getElementById(id);
+        element.style.backgroundColor = `rgb(${p.red === 0 ? 0 : 255},${p.green === 0 ? 0 : 255},${p.blue === 0 ? 0 : 255})`;
+      })
+    })
+  }
 
   const setUR = (data:any) => {
     let newUR;
@@ -120,7 +133,7 @@ const PixelArtsEdit = () => {
         })
       })
     }
-    setURPixels(newUR);      
+    setURPixels(newUR);
     if(startIndex < 0){
       setStartIndex(0);
     }else if(startIndex == current){
@@ -140,8 +153,8 @@ const PixelArtsEdit = () => {
           key={id}
           onMouseDown={() => handleMouseDown()}
           onMouseUp={() => handleMouseUp()}
-          onPixelOver={(x, y, red, green, blue) => handlePixelOver(x, y, red, green, blue)}
-          onPixelClick={(x, y, red, green, blue) => handlePixelClick(x, y, red, green, blue)}
+          onPixelOver={(x, y) => handlePixelOver(x, y)}
+          onPixelClick={(x, y) => handlePixelClick(x, y)}
         />
       );
     })
@@ -155,17 +168,27 @@ const PixelArtsEdit = () => {
     setClicked(false);
   }
 
-  const handlePixelOver = (x: number, y: number, red: number, green: number, blue: number) => {
+  const handleMouseWindowUp = (e:any) => {
+    if(e){
+      setClicked(false);
+    }
+  }
+
+  const handleMouseWindowDown = (e:any) => {
+    if(e){
+      setClicked(true);
+    }
+  }
+  
+  const setBGC = (x:number,y:number) => {
+    const id = (x < 10 ? "0" + x : x) + "" + (y < 10 ? "0" + y : y);
+    const element: any = document.getElementById(id);
+    element.style.backgroundColor = `rgb(${color.red === 0 ? 0 : 255},${color.green === 0 ? 0 : 255},${color.blue === 0 ? 0 : 255})`;
+  }
+
+  const handlePixelOver = (x: number, y: number) => {
     if (isClicked) {
-      const newPixels = pixels.map((row) => {
-        return row.map((p) => {
-          if (x === p.x && y === p.y) {
-            return { ...p, red: color.red, green: color.green, blue: color.blue }
-          }
-          return p;
-        })
-      })
-      setPixel(newPixels);
+      setBGC(x,y);
       setIsUpdated(true);
     }else{
       if(isUpdated){
@@ -174,16 +197,8 @@ const PixelArtsEdit = () => {
     }
   }
 
-  const handlePixelClick = (x: number, y: number, red: number, green: number, blue: number) => {
-    const newPixels = pixels.map((row) => {
-      return row.map((p) => {
-        if (x === p.x && y === p.y) {
-          return { ...p, red: color.red, green: color.green, blue: color.blue }
-        }
-        return p;
-      })
-    })
-    setPixel(newPixels);
+  const handlePixelClick = (x: number, y: number) => {    
+    setBGC(x,y);
     setIsUpdateUR(true);
   }
 
@@ -229,7 +244,15 @@ const PixelArtsEdit = () => {
   }
 
   const handleDeleteColor = () => {
+    pixels.map((row) => {
+      row.map((p) => {
+        let id = (p.x < 10 ? "0" + p.x : p.x) + "" + (p.y < 10 ? "0" + p.y : p.y)
+        let element: any = document.getElementById(id);
+        element.style.backgroundColor = 'rgb(0,0,0)';
+      })
+    })
     setPixel(PixelTable);
+    
     setIsUpdateUR(true);
   }
 
@@ -241,7 +264,7 @@ const PixelArtsEdit = () => {
     if(startIndex < endIndex){
       if(startIndex <= currentIndex-1){
         setPixel(URPixels[current]);
-        setCurrentIndex(current); 
+        setCurrentIndex(current);
       }
     }else if(startIndex > endIndex){
       if(endIndex != current){
@@ -270,10 +293,10 @@ const PixelArtsEdit = () => {
     }
   }
 
-  console.log("s:"+startIndex+",c:"+currentIndex+",e:"+endIndex);
+  //console.log("s:"+startIndex+",c:"+currentIndex+",e:"+endIndex);
 
   return ( 
-    <div id="pixelArtEdit">
+    <div id="pixelArtEdit" onMouseDown={(e) => handleMouseWindowDown(e)} onMouseUp={(e) => handleMouseWindowUp(e)}>
       <div id="pixelArt">
         <table>
           <tbody>
