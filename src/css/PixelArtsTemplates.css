@@ -17,6 +17,7 @@
 }
 .pixea-art {
   margin: 10px;
+  height:285px;
 }
 .block-image {
   width: 200px;
@@ -25,6 +26,6 @@
   text-align: left;
   margin: auto;
   width: 150px;
-  height: 65px;
+  height: 25px;
   flex: 150px;
 }
