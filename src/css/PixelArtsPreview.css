@@ -32,3 +32,15 @@
     margin: 10px;
     
 }
+
+#pixelArtsPreview div.btn a#editButton{
+    background-color: rgb(255, 206, 68);
+}
+
+#pixelArtsPreview div.btn button#deleteButton{
+    background-color: rgb(217, 52, 72);
+}
+
+#pixelArtsPreview div.btn button#playButton{
+    background-color:  rgb(97, 199, 26);
+}
