@@ -47,9 +47,9 @@ const handleCloseNo = () => {
           <div className="margin"></div>
           <div className="btn">
             <ButtonGroup orientation="vertical">
-              <Button component={Link} to={paeUrl}>編集</Button>
-              <Button onClick={handleClickOpen}>削除</Button>
-              <Button onClick={reflectPixels}>実行</Button>
+              <Button id="editButton" component={Link} to={paeUrl}>編集</Button>
+              <Button id="deleteButton" onClick={handleClickOpen}>削除</Button>
+              <Button id="playButton" onClick={reflectPixels}>実行</Button>
             </ButtonGroup>
           </div>
         </div>
