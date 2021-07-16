@@ -39,8 +39,8 @@ const UndoRedoButton = React.memo((props: UndoRedoButtonProps) => {
 
     return(
         <div id="undoNextButton">
-            <Button className={classes.undonextButton} variant="contained" onClick={handleUndoPixels}><img src={undo}/></Button> 
-            <Button className={classes.undonextButton} variant="contained" onClick={handleNextPixels}><img src={redo}/></Button> 
+            <Button className={classes.undonextButton} variant="contained" onClick={handleUndoPixels} onDragStart={(e) => {e.preventDefault();}}><img src={undo}/></Button> 
+            <Button className={classes.undonextButton} variant="contained" onClick={handleNextPixels} onDragStart={(e) => {e.preventDefault();}}><img src={redo}/></Button> 
         </div>
     );
 })

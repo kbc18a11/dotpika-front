@@ -100,6 +100,7 @@ div#backgroundColorButtons {
 
 div#backgroundColorButtons img{
     margin-left:10px;
+    user-select: none;
 }
 
 

@@ -20,9 +20,9 @@ let PixelTable: Pixel[][] = [...Array(32)].map((_, i) => {
     return {
       x: i,
       y: j,
-      red: 0,
-      green: 0,
-      blue: 0
+      red: 1,
+      green: 1,
+      blue: 1
     }
   })
 });
@@ -40,8 +40,8 @@ const PixelArtsEdit = () => {
   const [isClicked, setClicked] = useState(false);
   const [isUpdated,setIsUpdated] = useState(false);
   const [isUpdateUR,setIsUpdateUR] = useState(false);
-  const [color, setColor] = useState(Color[0]);
-  const [backgroundColor,setBackgroundColor] = useState(Color[6])
+  const [color, setColor] = useState(Color[6]);
+  const [backgroundColor,setBackgroundColor] = useState(Color[7])
   const [save, setSaveName] = useState("");
   const [isNew, setIsNewPixelArt] = useState(true);
   const [startIndex, setStartIndex] = useState(-1);
@@ -281,7 +281,7 @@ const PixelArtsEdit = () => {
   const backgroundColorButtons = () => {
     return (
       <div id="backgroundColorButtons">
-        <img src={fillColor}/>
+        <img src={fillColor} onDragStart={(e) => {e.preventDefault();}}/>
         <ColorButton key="red" value="red" index={0} onColorChange={(index) => handleBackgroundColor(index)} />
         <ColorButton key="green" value="green" index={1} onColorChange={(index) => handleBackgroundColor(index)} />
         <ColorButton key="blue" value="blue" index={2} onColorChange={(index) => handleBackgroundColor(index)} />
