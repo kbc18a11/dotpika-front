@@ -23,10 +23,10 @@ function App() {
           <Route path='/pixel-arts/:id' component={PixelArtsPreview} />
           {/* 作成したドット絵一覧 */}
           <Route path='/pixel-arts-me' component={PixelArtsMe} />
+          {/* ドット絵編集画面(既存) :id'で指定されたドット絵を表示  */}
+          <Route path='/pixel-arts-edit/:pixelArtId' component={PixelArtsEdit} />
           {/* ドット絵編集画面(新規) */}
           <Route path='/pixel-arts-edit' component={PixelArtsEdit} />
-          {/* ドット絵編集画面(既存) :id'で指定されたドット絵を表示  */}
-          <Route path='/pixel-arts-edit/:id' component={PixelArtsEdit} />
           {/* 作成したドット絵一覧 */}
           <Route path='/pixel-arts-templates' component={PixelArtsTemplates} />
           {/* ホーム画面 */}
