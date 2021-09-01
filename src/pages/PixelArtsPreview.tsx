@@ -13,8 +13,11 @@ import '../css/PixelArtsPreview.css';
 
 const PixelArtsPreview = (props: any) => {
   const [open, setOpen] = useState(false);
-  const { id: _id } = useParams<{id: string}>();
+  const { id } = useParams<{id: string}>();
+  console.log("PixelArtsPreview:" + id);
+  const [_id, setId] = useState(id);
   const paeUrl = "/pixel-arts-edit/" + _id;
+  console.log("paeUrl = " + paeUrl);
 
   const salvageLocal = localStorage.getItem(_id);
   const parseLocal = JSON.parse(salvageLocal!);
@@ -30,15 +33,46 @@ const PixelArtsPreview = (props: any) => {
   };
 
   const handleCloseYes = () => {
-      setOpen(false);
-      deletePixels(_id)
+    setOpen(false);
+    deletePixels(_id)
   };
 
-const handleCloseNo = () => {
+  const handleCloseNo = () => {
     setOpen(false);
   };
 
-  
+  // 他のドット絵を表示する
+  const arrowPixels = (arrow: string) => {
+    let keyAry = []; //作業用配列
+    let targetKeyIndex = 0;
+    let nextId = "";
+
+    //localStorageのkeyを作業用配列に格納する
+    for (var key in localStorage) {
+      if ( localStorage.hasOwnProperty(key) ) {
+        keyAry.push(key);
+        if (key === _id) targetKeyIndex = keyAry.length - 1;
+      }
+    }
+
+    //次に切り替えるidを決定する
+    if (arrow === "left") {
+      if (targetKeyIndex - 1 < 0) {
+        nextId = keyAry[keyAry.length - 1];
+      } else {
+        nextId = keyAry[targetKeyIndex - 1];
+      } 
+    } else if (arrow === "right") {
+      if (targetKeyIndex + 1 >= keyAry.length) {
+        nextId = keyAry[0];
+      } else {
+        nextId = keyAry[targetKeyIndex + 1];
+      }
+    }
+    setId(_id);
+    console.log("arrowPixes:" + _id);
+  }
+
   return (
     <React.Fragment>
       <div id="pixelArtsPreview">
@@ -53,12 +87,12 @@ const handleCloseNo = () => {
             </ButtonGroup>
           </div>
         </div>
-        {/* <IconButton onClick={slidePixels}>
+        <Button onClick={ () => arrowPixels("left") } component={Link} to="/pixel-arts/3">
           <ArrowBack color="primary"/>
-        </IconButton>
+        </Button>
         <IconButton>
           <ArrowForward color="primary"/>
-        </IconButton> */}
+        </IconButton>
       </div>
       <Dialog
         open={open}
@@ -93,6 +127,7 @@ const PreviewPixels = (props: any) => {
   const dots = parseLocal["dots"];
   const artName = parseLocal["name"];
   
+  //
   let tr = [];
   for(var i = 0; i < dots.length; i++) {
     let line = dots[i];
@@ -111,19 +146,7 @@ const PreviewPixels = (props: any) => {
   );
 }
 
-const createTd = () => {
-  return 
-}
-
 //ドット絵を削除する
 const deletePixels = (_id: string) => {
   localStorage.removeItem(_id);
 }
-
-//ドット絵を描画する
-
-
-// 他のドット絵を表示する
-// const slidePixels = () => {
-//   console.log("slidePixels");
-// }
